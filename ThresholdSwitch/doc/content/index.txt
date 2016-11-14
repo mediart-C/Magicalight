@@ -1,0 +1,149 @@
+ThresholdSwitchName - English
+========================
+
+.. toctree::
+   :hidden:
+
+   index_j
+
+
+Introduction
+============
+
+
+For a full list of classes and functions, see the `API documentation`_.
+
+.. _`API Documentation`:
+   doxygen/html/index.html
+
+Requirements
+============
+
+ThresholdSwitch uses the `CMake build system`. You will need at least version
+2.8 to be able to build the component.
+
+.. _`CMAke build system`:
+   http://www.cmake.org
+
+
+Installation
+============
+
+Binary
+------
+
+Users of Windows can install the component using the binary installer. This
+will install the component and all its necessary dependencies. It is the
+recommended method of installation in Windows.
+
+- Download the installer from the website.
+- Double-click the executable file to begin installation.
+- Follow the instructions to install the component.
+- You may need to restart your computer for environment variable changes
+  to take effect before using the component.
+
+The component can be launched by double-clicking the
+``ThresholdSwitchComp`` executable. The ``ThresholdSwitch`` library
+is available for loading into a manager, using the initialisation function
+``ThresholdSwitchInit``.
+
+From source
+-----------
+
+Follow these steps to install ThresholdSwitch from source in any operating
+system:
+
+- Download the source, either from the repository or a source archive,
+  and extract it somewhere::
+
+    tar -xvzf ThresholdSwitch-1.0.0.tar.gz
+
+- Change to the directory containing the extracted source::
+
+    cd ThresholdSwitch-1.0.0
+
+- Create a directory called ``build``::
+
+    mkdir build
+
+- Change to that directory::
+
+    cd build
+
+- Run cmake or cmake-gui::
+
+    cmake ../
+
+- If no errors occurred, run make::
+
+    make
+
+- Finally, install the component. Ensure the necessary permissions to
+  install into the chosen prefix are available::
+
+    make install
+
+- The install destination can be changed by executing ccmake and changing
+  the variable ``CMAKE_INSTALL_PREFIX``::
+
+    ccmake ../
+
+The component is now ready for use. See the next section for instructions on
+configuring the component.
+
+ThresholdSwitch can be launched in stand-alone mode by executing the
+``ThresholdSwitchComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libThresholdSwitch.so`` can be loaded into a manager, using the
+initialisation function ``ThresholdSwitchInit``. This shared object can be found in
+``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
+
+
+Configuration
+=============
+
+The available configuration parameters are described below:
+
+================ ================== ================ ======
+Parameter        Data type          Default Value    Effect
+================ ================== ================ ======
+AutoMode         int                1                自動演算モードにするか手動入力モードにするかを選びます．<br/>0.	自動演算モード<br/>1.	手動入力モード
+Frequency        int                3                任意の回数の中で，この回数分だけ閾値を超えればtrueが出力される値．
+IgnoreFalse      int                3                この回数分trueになる条件が満たせなければfalseが出力される値．
+Bias             double             512              入力されるデータのとりうる値の平均値．
+InportMax        double             1023             入力されるデータの最大値です．
+InportMin        double             -1               入力されるデータの最小値です．
+Reference        int                5                trueを出力するかfalseを出力するかを決めるときに参照する値の参照データの個数です.
+ThresholdPercent double             90               平均値から最大値，最小値を100%とした時の閾値です．
+================ ================== ================ ======
+
+Ports
+=====
+
+The ports provided by the component are described below:
+
+=============== =========== ============================== =======
+Name            Type        Data type                      Purpose
+=============== =========== ============================== =======
+InportData      InPort      RTC::TimedDouble               外部で読み取ったっデータを受け取ります。
+OutResult       OutPort     RTC::TimedBoolean              受け取ったデータと任意に設定した値からtrueまたはfalseを出力する
+=============== =========== ============================== =======
+
+Examples
+========
+
+An example configuration file is provided in the
+``${prefix}/components/share/ThresholdSwitch/examples/conf/`` directory.
+
+Changelog
+=========
+
+
+
+License
+=======
+
+This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.
+

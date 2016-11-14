@@ -1,0 +1,146 @@
+PWMFluctuationsName - English
+========================
+
+.. toctree::
+   :hidden:
+
+   index_j
+
+
+Introduction
+============
+
+
+For a full list of classes and functions, see the `API documentation`_.
+
+.. _`API Documentation`:
+   doxygen/html/index.html
+
+Requirements
+============
+
+PWMFluctuations uses the `CMake build system`. You will need at least version
+2.8 to be able to build the component.
+
+.. _`CMAke build system`:
+   http://www.cmake.org
+
+
+Installation
+============
+
+Binary
+------
+
+Users of Windows can install the component using the binary installer. This
+will install the component and all its necessary dependencies. It is the
+recommended method of installation in Windows.
+
+- Download the installer from the website.
+- Double-click the executable file to begin installation.
+- Follow the instructions to install the component.
+- You may need to restart your computer for environment variable changes
+  to take effect before using the component.
+
+The component can be launched by double-clicking the
+``PWMFluctuationsComp`` executable. The ``PWMFluctuations`` library
+is available for loading into a manager, using the initialisation function
+``PWMFluctuationsInit``.
+
+From source
+-----------
+
+Follow these steps to install PWMFluctuations from source in any operating
+system:
+
+- Download the source, either from the repository or a source archive,
+  and extract it somewhere::
+
+    tar -xvzf PWMFluctuations-1.0.0.tar.gz
+
+- Change to the directory containing the extracted source::
+
+    cd PWMFluctuations-1.0.0
+
+- Create a directory called ``build``::
+
+    mkdir build
+
+- Change to that directory::
+
+    cd build
+
+- Run cmake or cmake-gui::
+
+    cmake ../
+
+- If no errors occurred, run make::
+
+    make
+
+- Finally, install the component. Ensure the necessary permissions to
+  install into the chosen prefix are available::
+
+    make install
+
+- The install destination can be changed by executing ccmake and changing
+  the variable ``CMAKE_INSTALL_PREFIX``::
+
+    ccmake ../
+
+The component is now ready for use. See the next section for instructions on
+configuring the component.
+
+PWMFluctuations can be launched in stand-alone mode by executing the
+``PWMFluctuationsComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libPWMFluctuations.so`` can be loaded into a manager, using the
+initialisation function ``PWMFluctuationsInit``. This shared object can be found in
+``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
+
+
+Configuration
+=============
+
+The available configuration parameters are described below:
+
+================ ================== ================ ======
+Parameter        Data type          Default Value    Effect
+================ ================== ================ ======
+Mode             int                1                1:揺らぎモード<br/>1以外:通常点灯モード
+MaxBrightness    int                1200             揺らぎ時の明るさの最大値を決定する．数値が大きい方が一番明るいときが明るくなる．
+MinBrightness    int                300              揺らぎ時の明るさの最大値を決定する．大きくなればなるほど一番暗い時がより暗くなる．
+OnWidth          double             4                揺らぎ時にLEDが点灯時間を決定する．
+OffWidth         double             0.01             揺らぎ時のLEDの消灯時間を決定する．
+Rate             int                2                揺らぎ時の揺らぎの変化の速さを変える．値を大きくすると速くなり，小さくすると遅くなる．
+================ ================== ================ ======
+
+Ports
+=====
+
+The ports provided by the component are described below:
+
+=============== =========== ============================== =======
+Name            Type        Data type                      Purpose
+=============== =========== ============================== =======
+inSW            InPort      RTC::TimedBoolean              LEDの点灯/消灯を決めます．<br/>TRUEが入力されている間は点灯，FALSEが入力されている間は消灯します．
+=============== =========== ============================== =======
+
+Examples
+========
+
+An example configuration file is provided in the
+``${prefix}/components/share/PWMFluctuations/examples/conf/`` directory.
+
+Changelog
+=========
+
+
+
+License
+=======
+
+This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.
+

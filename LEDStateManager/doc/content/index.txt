@@ -1,0 +1,145 @@
+LEDStateManagerName - English
+========================
+
+.. toctree::
+   :hidden:
+
+   index_j
+
+
+Introduction
+============
+
+
+For a full list of classes and functions, see the `API documentation`_.
+
+.. _`API Documentation`:
+   doxygen/html/index.html
+
+Requirements
+============
+
+LEDStateManager uses the `CMake build system`. You will need at least version
+2.8 to be able to build the component.
+
+.. _`CMAke build system`:
+   http://www.cmake.org
+
+
+Installation
+============
+
+Binary
+------
+
+Users of Windows can install the component using the binary installer. This
+will install the component and all its necessary dependencies. It is the
+recommended method of installation in Windows.
+
+- Download the installer from the website.
+- Double-click the executable file to begin installation.
+- Follow the instructions to install the component.
+- You may need to restart your computer for environment variable changes
+  to take effect before using the component.
+
+The component can be launched by double-clicking the
+``LEDStateManagerComp`` executable. The ``LEDStateManager`` library
+is available for loading into a manager, using the initialisation function
+``LEDStateManagerInit``.
+
+From source
+-----------
+
+Follow these steps to install LEDStateManager from source in any operating
+system:
+
+- Download the source, either from the repository or a source archive,
+  and extract it somewhere::
+
+    tar -xvzf LEDStateManager-1.0.0.tar.gz
+
+- Change to the directory containing the extracted source::
+
+    cd LEDStateManager-1.0.0
+
+- Create a directory called ``build``::
+
+    mkdir build
+
+- Change to that directory::
+
+    cd build
+
+- Run cmake or cmake-gui::
+
+    cmake ../
+
+- If no errors occurred, run make::
+
+    make
+
+- Finally, install the component. Ensure the necessary permissions to
+  install into the chosen prefix are available::
+
+    make install
+
+- The install destination can be changed by executing ccmake and changing
+  the variable ``CMAKE_INSTALL_PREFIX``::
+
+    ccmake ../
+
+The component is now ready for use. See the next section for instructions on
+configuring the component.
+
+LEDStateManager can be launched in stand-alone mode by executing the
+``LEDStateManagerComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libLEDStateManager.so`` can be loaded into a manager, using the
+initialisation function ``LEDStateManagerInit``. This shared object can be found in
+``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
+
+
+Configuration
+=============
+
+The available configuration parameters are described below:
+
+================ ================== ================ ======
+Parameter        Data type          Default Value    Effect
+================ ================== ================ ======
+Mode             int                0                連動方法を設定します．<br/>Mode 0:通常連動モード<br/>Mode 1:イエスマンモード<br/>Mode 2:ランダムモード<br/>Mode 3:非連動モード<br/>その他:全出力ポートにfalseを入力
+BaseUnitNum      int                0                連動時の親機の番号を設定します．
+inportNum        int                4                使用するinportの数を決定します．
+outportNum       int                4                使用するinportの数を決定します．
+================ ================== ================ ======
+
+Ports
+=====
+
+The ports provided by the component are described below:
+
+=============== =========== ============================== =======
+Name            Type        Data type                      Purpose
+=============== =========== ============================== =======
+in0             InPort      RTC::TimedBoolean              現在接続されているLEDの点灯/消灯に応じてtrue/falseが入力されます．<br/>接続するLEDの数に応じてConfiguration:inportNumの値を変更してください．ポートの呼び名は上から0番，1番，・・・としています．
+out0            OutPort     RTC::TimedBoolean              連動処理後のLEDの点灯/消灯に応じてtrue/falseが出力されます．<br/>接続するLEDの数に応じてConfiguration:outportNumの値を変更してください．<br/>ポートの呼び名は上から0番，1番，・・・としています．
+=============== =========== ============================== =======
+
+Examples
+========
+
+An example configuration file is provided in the
+``${prefix}/components/share/LEDStateManager/examples/conf/`` directory.
+
+Changelog
+=========
+
+
+
+License
+=======
+
+This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.
+

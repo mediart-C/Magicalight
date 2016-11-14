@@ -1,0 +1,54 @@
+# LEDStateManager CMake config file
+#
+# This file sets the following variables:
+# LEDStateManager_FOUND - Always TRUE.
+# LEDStateManager_INCLUDE_DIRS - Directories containing the LEDStateManager include files.
+# LEDStateManager_IDL_DIRS - Directories containing the LEDStateManager IDL files.
+# LEDStateManager_LIBRARIES - Libraries needed to use LEDStateManager.
+# LEDStateManager_DEFINITIONS - Compiler flags for LEDStateManager.
+# LEDStateManager_VERSION - The version of LEDStateManager found.
+# LEDStateManager_VERSION_MAJOR - The major version of LEDStateManager found.
+# LEDStateManager_VERSION_MINOR - The minor version of LEDStateManager found.
+# LEDStateManager_VERSION_REVISION - The revision version of LEDStateManager found.
+# LEDStateManager_VERSION_CANDIDATE - The candidate version of LEDStateManager found.
+
+message(STATUS "Found LEDStateManager-@PROJECT_VERSION@")
+set(LEDStateManager_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(LEDStateManager_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(LEDStateManager_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(LEDStateManager_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(LEDStateManager_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(LEDStateManager_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(LEDStateManager_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(LEDStateManager_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(LEDStateManager_VERSION @PROJECT_VERSION@)
+set(LEDStateManager_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(LEDStateManager_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(LEDStateManager_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(LEDStateManager_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

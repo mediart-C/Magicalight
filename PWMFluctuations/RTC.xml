@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Shintaro Nakazawa, Daichi Katagiri:RaspberryPi:PWMFluctuations:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="PWMFluctuations" rtc:updateDate="2016-10-29T11:13:53+09:00" rtc:creationDate="2016-10-29T11:13:53+09:00" rtc:abstract="本コンポーネントはRaspberryPiに接続されたLEDをON，OFFを切り替えることで，疑似的に火のように揺らがせるコンポーネントです．
+今回はGPIO17ピンにLEDが接続されていることを前提とします．" rtc:version="1.0.0" rtc:vendor="Shintaro Nakazawa, Daichi Katagiri" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="ModuleDescription" rtc:category="RaspberryPi" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="PWMFluctuations">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="" rtcDoc:creator="Shintaro Nakazawa&lt;br/&gt;cy14143@shibaura-it.ac.jp&lt;br/&gt;&lt;br/&gt;Daichi Katagiri&lt;br/&gt;cy14119@shibaura-it.ac.jp" rtcDoc:algorithm="" rtcDoc:inout="入力ではTimedBoolean型の値を受け取り，TRUEが来続けているときはLEDを点灯させ，FALSEが来続けているときはLEDを消灯させます．" rtcDoc:description="本コンポーネントはRaspberryPiに接続されたLEDをON，OFFを切り替えることで，疑似的に火のように揺らがせるコンポーネントです．&lt;br/&gt;今回はGPIO17ピンにLEDが接続されていることを前提とします．"/>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+    </rtc:BasicInfo>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="RaspberryPiにWiringPiがインストールされていること。" rtcDoc:description="wiringPiのセットアップを行います．"/>
+        </rtc:OnActivated>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="Deactivated時に行う処理はありません．"/>
+        </rtc:OnDeactivated>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="RaspberryPiのGPIO17ピンにLED を接続してください．" rtcDoc:description="configurationで指定したmodeの値によって処理を変えます．&lt;br/&gt;mode 1:LEDを揺らがせます．&lt;br/&gt;mode 1以外:LEDを通常点灯します．"/>
+        </rtc:OnExecute>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAction xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnModeChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:ConfigurationSet>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="1" rtc:type="int" rtc:name="Mode">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="1:揺らぎモード&lt;br/&gt;1以外:通常点灯モード" rtcDoc:defaultValue="1" rtcDoc:dataname="Mode"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="1200" rtc:type="int" rtc:name="MaxBrightness">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="0より大きい" rtcDoc:unit="" rtcDoc:description="揺らぎ時の明るさの最大値を決定する．数値が大きい方が一番明るいときが明るくなる．" rtcDoc:defaultValue="1200" rtcDoc:dataname="MaxBrightness"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="300" rtc:type="int" rtc:name="MinBrightness">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="揺らぎ時の明るさの最大値を決定する．大きくなればなるほど一番暗い時がより暗くなる．" rtcDoc:defaultValue="300" rtcDoc:dataname="MinBrightness"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="4" rtc:type="double" rtc:name="OnWidth">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="0より大きい" rtcDoc:unit="" rtcDoc:description="揺らぎ時にLEDが点灯時間を決定する．" rtcDoc:defaultValue="4" rtcDoc:dataname="OnWidth"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0.01" rtc:type="double" rtc:name="OffWidth">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="0より大きい" rtcDoc:unit="" rtcDoc:description="揺らぎ時のLEDの消灯時間を決定する．" rtcDoc:defaultValue="0.01" rtcDoc:dataname="OffWidth"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="2" rtc:type="int" rtc:name="Rate">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="0より大きい" rtcDoc:unit="" rtcDoc:description="揺らぎ時の揺らぎの変化の速さを変える．値を大きくすると速くなり，小さくすると遅くなる．" rtcDoc:defaultValue="2" rtcDoc:dataname="Rate"/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+    </rtc:ConfigurationSet>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedBoolean" rtc:name="inSW" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="1" rtcDoc:type="TimedBoolean" rtcDoc:description="LEDの点灯/消灯を決めます．&lt;br/&gt;TRUEが入力されている間は点灯，FALSEが入力されている間は消灯します．"/>
+    </rtc:DataPorts>
+    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
+</rtc:RtcProfile>

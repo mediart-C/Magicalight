@@ -1,0 +1,54 @@
+# ThresholdSwitch CMake config file
+#
+# This file sets the following variables:
+# ThresholdSwitch_FOUND - Always TRUE.
+# ThresholdSwitch_INCLUDE_DIRS - Directories containing the ThresholdSwitch include files.
+# ThresholdSwitch_IDL_DIRS - Directories containing the ThresholdSwitch IDL files.
+# ThresholdSwitch_LIBRARIES - Libraries needed to use ThresholdSwitch.
+# ThresholdSwitch_DEFINITIONS - Compiler flags for ThresholdSwitch.
+# ThresholdSwitch_VERSION - The version of ThresholdSwitch found.
+# ThresholdSwitch_VERSION_MAJOR - The major version of ThresholdSwitch found.
+# ThresholdSwitch_VERSION_MINOR - The minor version of ThresholdSwitch found.
+# ThresholdSwitch_VERSION_REVISION - The revision version of ThresholdSwitch found.
+# ThresholdSwitch_VERSION_CANDIDATE - The candidate version of ThresholdSwitch found.
+
+message(STATUS "Found ThresholdSwitch-@PROJECT_VERSION@")
+set(ThresholdSwitch_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(ThresholdSwitch_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(ThresholdSwitch_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(ThresholdSwitch_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(ThresholdSwitch_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(ThresholdSwitch_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(ThresholdSwitch_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(ThresholdSwitch_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(ThresholdSwitch_VERSION @PROJECT_VERSION@)
+set(ThresholdSwitch_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(ThresholdSwitch_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(ThresholdSwitch_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(ThresholdSwitch_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
